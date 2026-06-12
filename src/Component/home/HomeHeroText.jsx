@@ -1,7 +1,7 @@
 
 function HomeHeroText() {
   return (
-    <div>
+    <div className="font-[font1] text-6xl text-white">
       <div>
         The spark for
       </div>
