@@ -1,0 +1,12 @@
+@import "tailwindcss";
+body{
+    background-color: black;
+}
+@font-face {
+    font-family: font1;
+    src: url("./fonts/Lausanne-300.woff2");
+}
+@font-face {
+    font-family: font2;
+    src: url("./fonts/Lausanne-500.woff2");
+}
