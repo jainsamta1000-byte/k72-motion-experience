@@ -1,5 +1,5 @@
 
-function Products() {
+function Works() {
   return (
     <div>
       
@@ -7,4 +7,4 @@ function Products() {
   )
 }
 
-export default Products
+export default Works;

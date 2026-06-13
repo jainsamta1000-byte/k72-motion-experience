@@ -10,3 +10,9 @@ body{
     font-family: font2;
     src: url("./fonts/Lausanne-500.woff2");
 }
+.video-wrapper video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 25% !important; 
+}

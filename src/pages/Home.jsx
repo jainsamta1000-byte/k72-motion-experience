@@ -3,14 +3,14 @@ import HomeBottomText from '../Component/home/HomeBottomText.jsx'
 import HomeHeroText from '../Component/home/HomeHeroText.jsx'
 function Home() {
   return (
-    <div>
+    <div className='overflow-hidden'>
         
-    <div className='w-screen h-screen fixed'>
+    <div className='w-screen h-screen fixed overflow-hidden'>
       <Video />
     </div>
     <div className='w-screen h-screen relative flex flex-col'>
-     <HomeBottomText/>
      <HomeHeroText/>
+     <HomeBottomText/>
      
     </div> 
     </div>
