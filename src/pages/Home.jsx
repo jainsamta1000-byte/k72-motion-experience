@@ -8,7 +8,7 @@ function Home() {
     <div className='w-screen h-screen fixed overflow-hidden'>
       <Video />
     </div>
-    <div className='w-screen h-screen relative flex flex-col'>
+    <div className='w-screen h-screen relative flex flex-col items-center justify-around'>
      <HomeHeroText/>
      <HomeBottomText/>
      
