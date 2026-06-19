@@ -6,59 +6,96 @@ import { useRef } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 function Agency() {
-  const imgArr=[
-   '/img/Carl_480x640.jpg',
-   '/img/ChantalG_480x640.jpg',
-   '/img/joel_480X640_3.jpg',
-   '/img/Olivier_480x640.jpg',
-   '/img/MEGGIE_480X640_2.jpg',
-   '/img/Michele_480X640.jpg',
-   '/img/MEL_480X640.jpg',
-   '/img/CAMILLE_480X640_2.jpg'
-  ]
-   const sectionRef = useRef(null);
-   const imgDivRef =useRef(null);
-    const imgRef= useRef(null);
-  useGSAP(function(){
+  const imgArr = [
+    '/img/Carl_480x640.jpg',
+    '/img/ChantalG_480x640.jpg',
+    '/img/joel_480X640_3.jpg',
+    '/img/Olivier_480x640.jpg',
+    '/img/MEGGIE_480X640_2.jpg',
+    '/img/Michele_480X640.jpg',
+    '/img/MEL_480X640.jpg',
+    '/img/CAMILLE_480X640_2.jpg',
+  ];
 
-  const imageScroll = ScrollTrigger.create({
-    trigger:sectionRef.current,
-    start:'top top',
-    end:'bottom bottom',
-    scrub:1,
-    onUpdate:(event) => {
-      const imgIndex = Math.min(Math.floor(event.progress * imgArr.length), imgArr.length - 1);
-      if (imgRef.current) imgRef.current.src = imgArr[imgIndex];
-    }
-  })
+  const imgDivRef = useRef(null);
+  const sectionRef = useRef(null);
+  const imgRef = useRef(null);
 
-  return () => imageScroll.kill();
-})
+  useGSAP(() => {
+    gsap.to(imgDivRef.current, {
+      opacity: 1,
+      scrollTrigger: {
+        trigger: imgDivRef.current,
+        start: 'top 20%',
+        end: 'bottom -100%',
+        scroller: sectionRef.current,
+        scrub: true,
+        pin: true,
+        onUpdate: (self) => {
+          const imgIndex = Math.min(
+            Math.floor(self.progress * imgArr.length),
+            imgArr.length - 1
+          );
+          if (imgRef.current) {
+            imgRef.current.src = imgArr[imgIndex];
+          }
+        },
+      },
+    });
+  }, { scope: sectionRef });
+
   return (
-    
-    <div className="w-full min-h-[300vh]">
-      <div ref={sectionRef} className="section1 relative min-h-[200vh]">
-      <div className="font-[font2] py-1">
-      <div  ref={imgDivRef} className=" sticky top-30 ml-[40vw] z-10 overflow-hidden h-[20vw] rounded-3xl w-[15vw] ">
-        <img ref={imgRef} className="h-full w-full object-cover rounded-3xl" src="https://k72.ca/images/teamMembers/Carl_480x640.jpg?w=480&h=640&fit=crop&s=f0a84706bc91a6f505e8ad35f520f0b7
-        " alt="img1"/>
-      </div>
-      <div className=" relative mt-[35vh] text-[18vw] text-white leading-[17vw] font-[font1] flex flex-col items-center justify-center">
-        <div>SEVEN7Y</div>
-        <div>TWO</div>
+    <div className="h-screen w-screen">
 
-      </div>
-      <div className="text-white text-[3vw] leading-[4vw] pl-[45%]">
-        <p className="indent-53">   We’re inquisitive and open-minded, and we make sure creativity crowds out ego from every corner. A brand is a living thing, with values, a personality and a story. If we ignore that, we can achieve short-term success, but not influence that goes the distance. We bring that perspective to every brand story we help tell.
-          </p>
-      </div>
+      <div
+        ref={sectionRef}
+        className="h-full overflow-y-auto bg-black"
+      >
+        <div className="font-[font2] relative min-h-[300vh] w-full">
 
+          <div
+            ref={imgDivRef}
+            className="sticky top-[10%] ml-[30vw] mt-[5vh] left-[30%]
+             h-[20vw] w-[15vw] rounded-3xl overflow-hidden z-0"
+          >
+            <img
+              ref={imgRef}
+              className="w-full h-full object-cover rounded-3xl"
+              src="/img/Carl_480x640.jpg"
+              alt="model"
+            />
+            <div className="absolute inset-0 bg-black/30 rounded-3xl" />
+          </div>
 
-    </div>
-    </div>
-    <div className="section2 h-screen w-screen"></div>
+          <div
+            className="absolute top-[50vh] w-full
+                       text-[18vw] text-white leading-[17vw]
+                       font-[font1] flex flex-col items-center"
+          >
+            <div>SEVEN7Y</div>
+            <div>TWO</div>
+          </div>
+
+          <div
+            className="absolute top-[130vh] right-0 w-1/2
+                       text-white text-[3vw] leading-[4vw] pr-[5vw]"
+          >
+            <p className="indent-[3em]">
+             We’re inquisitive and open-minded, and we make sure creativity crowds out ego from every corner. A brand is a living thing, with values, a personality and a story. If we ignore that, we can achieve short-term success, but not influence that goes the distance. We bring that perspective to every brand story we help tell.
+
+            </p>
+          </div>
+
+        </div>
+
+        <div className="min-h-screen w-full bg-yellow-400 flex items-center justify-center">
+          <h2 className="text-black text-[6vw] font-[font1]">Section 2</h2>
+        </div>
+
+       
+      </div>
     </div>
   );
 }
 
-export default Agency
+export default Agency;
