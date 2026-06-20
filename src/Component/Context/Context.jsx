@@ -1,14 +1,31 @@
-import  { createContext, useState } from 'react'
+/* eslint-disable react-hooks/set-state-in-effect */
+/* eslint-disable react-refresh/only-export-components */
+import  { createContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const NavbarContext = createContext('null') 
+export const NavbarContext = createContext()
+export const NavbarColorContext = createContext()
+
 const NavContext = ({ children }) => {
-  const [navOpen, setNavOpen] = useState(false)
+  const [navColor, setNavColor] = useState()
+  const [navOpen, setNavOpen] = useState(false);
+  const locate = useLocation().pathname;
+  
+  useEffect(() => {
+   
+    if (locate === '/') {
+        setNavColor('white')
+    } else {
+        setNavColor('black')
+    }
+  }, [locate])
   return (
     <div>
-      <NavbarContext.Provider value={[navOpen, setNavOpen]}>
-        {children}
-      </NavbarContext.Provider>
+        <NavbarContext.Provider value={[navOpen, setNavOpen]}>
+            <NavbarColorContext.Provider value={[navColor, setNavColor]}>
+                {children}
+            </NavbarColorContext.Provider>
+          </NavbarContext.Provider>
     </div>
   )
 }
