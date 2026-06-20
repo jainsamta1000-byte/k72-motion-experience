@@ -1,8 +1,10 @@
 import Video from "./Video";
 function HomeHeroText() {
   return (
-    <div className="font-[font1] text-[9.5vw] flex flex-col pt-3 text-center
-     uppercase leading-[19vh] text-white">
+    <div className="font-[font1]  text-[11vw] lg:text-[9.5vw] 
+     flex flex-col justify-center
+     text-center items-center lg:mt-auto mt-[60vw]
+     uppercase lg:leading-[19vh] text-white">
       <div className="justify-center flex items-center">
         The spark for
       </div>

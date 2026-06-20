@@ -77,7 +77,7 @@ function closeMenu() {
   return (
     <div
       id="Page"
-      className="fullscreen w-screen flex flex-col 
+      className="fullscreen w-screen flex flex-col  
     overflow-hidden h-screen text-white"
     >
       <div className="h-full w-full fixed top-0 left-0 flex z-0 overflow-hidden">
@@ -112,7 +112,8 @@ function closeMenu() {
         id="continer "
          style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
         className=" overflow-hidden perspective-[1000px]
-       relative top-[7vw] h-[70vh] w-full flex flex-col
+       relative top-[70vw] lg:top-[7vw] w-full flex flex-col lg:gap-1
+        gap-[8vw] grow
        text-[8vw] font-[font2] leading-[7.5vw] uppercase items-center"
       >
         <div
@@ -120,10 +121,10 @@ function closeMenu() {
                     style={{"backfaceVisibility":"hidden"}}
 
           className="link border-t overflow-hidden project-item backface-hidden
-       border-white/60 p-1 h-[9vw] w-screen relative flex flex-col"
+       border-white/60 p-1 grow lg:h-[9vw] w-screen relative flex flex-col"
         >
           <div className="flex items-center justify-center ">
-            <h1>Work</h1>
+            <h1 className="text-center">Work</h1>
           </div>
 
           <div className="absolute top-0 h-full w-max flex items-center moveLink
@@ -169,10 +170,10 @@ function closeMenu() {
           id="link2"
           style={{"backfaceVisibility":"hidden"}}
           className="link border-t overflow-hidden project-item 
-       border-white/60 p-1 h-[9vw] w-screen relative flex flex-col"
+       border-white/60 p-1  h:[12vw] lg:h-[9vw] w-screen relative flex flex-col"
         >
           <div className="flex gap-5 items-center justify-center ">
-            <h1>Agency</h1>
+            <h1 className="text-center">Agency</h1>
           </div>
 
           <div className="absolute top-0 h-full w-max flex items-center moveLink
@@ -217,10 +218,10 @@ function closeMenu() {
         <div
           id="link3"
           className="link border-t overflow-hidden project-item
-       border-white/60 p-1 h-[9vw] w-screen relative flex flex-col"
+       border-white/60 p-1  h:[12vw] lg:h-[9vw] w-screen relative flex flex-col"
         >
           <div className="flex items-center justify-center ">
-            <h1>Contact</h1>
+            <h1 className="text-center">Contact</h1>
           </div>
 
           <div className="absolute top-0 h-full w-max flex items-center moveLink
@@ -266,10 +267,10 @@ function closeMenu() {
         <div
           id="link4"
           className="link border-y overflow-hidden project-item
-       border-white/60 p-1 h-[9vw] w-screen relative flex flex-col"
+       border-white/60 p-1  h:[23vw] lg:h-[9vw] w-screen relative flex flex-col"
         >
           <div className="flex items-center justify-center ">
-            <h1>Blog</h1>
+            <h1 className="text-center">Blog</h1>
           </div>
 
           <div className="absolute top-0 h-full w-max flex items-center moveLink
@@ -310,8 +311,11 @@ function closeMenu() {
             </div>
           </div>
         </div>
+     
       </div>
+  
     </div>
+    
   );
 }
 

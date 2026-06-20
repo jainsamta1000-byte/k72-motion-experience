@@ -55,8 +55,8 @@ function Agency() {
 
           <div
             ref={imgDivRef}
-            className="sticky top-[10%] ml-[30vw] mt-[5vh] left-[30%]
-             h-[20vw] w-[15vw] rounded-3xl overflow-hidden z-0"
+            className="sticky top-[10%]  ml-[10vw] lg:ml-[30vw] mt-[5vh] left-10 lg:left-[30%]
+            w-[30vw] h-[30vw]  lg:h-[20vw] lg:w-[15vw] rounded-3xl overflow-hidden z-0"
           >
             <img
               ref={imgRef}
@@ -68,7 +68,7 @@ function Agency() {
           </div>
 
           <div
-            className="absolute top-[50vh] w-full
+            className="absolute top-[30vh] lg:top-[50vh] w-full
                        text-[18vw] text-white leading-[17vw]
                        font-[font1] flex flex-col items-center"
           >
@@ -77,8 +77,9 @@ function Agency() {
           </div>
 
           <div
-            className="absolute top-[130vh] right-0 w-1/2
-                       text-white text-[3vw] leading-[4vw] pr-[5vw]"
+            className="absolute top-[50vh] lg:top-[130vh] right-0 w-full lg:p-0 p-[50vh] lg:w-1/2
+                       text-white text-[6vw] lg:text-[3vw] lg:leading-[4vw]
+                        pr-[5vw]"
           >
             <p className="indent-[3em]">
              We’re inquisitive and open-minded, and we make sure creativity crowds out ego from every corner. A brand is a living thing, with values, a personality and a story. If we ignore that, we can achieve short-term success, but not influence that goes the distance. We bring that perspective to every brand story we help tell.

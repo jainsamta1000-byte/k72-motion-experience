@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 const HomeBottomText = () => {
   return (
     <div
-      className="mt-[6vw] flex w-full flex-wrap justify-center gap-4
-      px-5 text-center font-[font2] text-[clamp(2.5rem,7vw,7rem)]
+      className="lg:mt-[6vw] flex  lg:items-center items-center lg:ml-auto ml-[4vw] justify-center  gap-4
+      px-5 text-center font-[font2] text-4xl lg:text-[clamp(2.5rem,7vw,7rem)]
       uppercase text-white"
     >
       <Link

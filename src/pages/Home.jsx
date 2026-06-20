@@ -8,11 +8,13 @@ function Home() {
     <div className='w-screen h-screen fixed overflow-hidden'>
       <Video />
     </div>
-    <div className='w-screen h-screen relative flex flex-col items-center justify-around'>
-     <HomeHeroText/>
-     <HomeBottomText/>
-     
-    </div> 
+   <div className='w-screen min-h-screen relative flex flex-col 
+        lg:mt-auto lg:pt-1 pt-[90vw] lg:gap-1 gap-[20vw] justify-center lg:justify-around'>
+        <HomeHeroText/>
+       <div className='lg:static absolute lg:bottom-0 bottom-[4vh]'>
+      <HomeBottomText />
+    </div>
+      </div> 
     </div>
   )
 }
