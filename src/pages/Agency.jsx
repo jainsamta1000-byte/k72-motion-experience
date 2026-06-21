@@ -2,7 +2,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,12 +18,57 @@ function Agency() {
     "/img/CAMILLE_480X640_2.jpg",
   ];
 
-  const imgDivRef = useRef(null);
-  const lastImgRef = useRef(null);
-  const lastImgRef2 = useRef(null); // ✅ was missing
-  const sectionRef = useRef(null);
-  const imgRef = useRef(null);
+  const imgDivRef    = useRef(null);
+  const lastImgRef   = useRef(null);
+  const lastImgRef2  = useRef(null);
+  const sectionRef   = useRef(null);
+  const imgRef       = useRef(null);
   const containerRef = useRef(null);
+
+  // 4 separate refs — one per visible span
+  const l1FwdRef  = useRef(null);
+  const l1BackRef = useRef(null);
+  const l2FwdRef  = useRef(null);
+  const l2BackRef = useRef(null);
+
+  useEffect(() => {
+    if (document.getElementById("train-style")) return;
+    const s = document.createElement("style");
+    s.id = "train-style";
+    s.textContent = `
+      @keyframes trainLeft {
+        0%   { transform: translateX(-120vw); }
+        100% { transform: translateX(120vw);  }
+      }
+      @keyframes trainRight {
+        0%   { transform: translateX(120vw);  }
+        100% { transform: translateX(-120vw); }
+      }
+      .train-label {
+        position: absolute;
+        left: 0;
+        white-space: nowrap;
+        font-family: font1, sans-serif;
+        font-size: 5vw;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        color: #DF4;
+        pointer-events: none;
+      }
+      .train-fwd {
+        top: 40%;
+        animation: trainLeft 10s linear infinite;
+      }
+      .train-back {
+        top: 58%;
+        animation: trainRight 7s linear infinite;
+=      }
+    `;
+    document.head.appendChild(s);
+  }, []);
+
+  const show = (...refs) => refs.forEach(r => { if (r.current) r.current.style.opacity = "1"; });
+  const hide = (...refs) => refs.forEach(r => { if (r.current) r.current.style.opacity = "0"; });
 
   useGSAP(() => {
     // Section 1 - image cycling
@@ -41,9 +86,7 @@ function Agency() {
             Math.floor(self.progress * imgArr.length),
             imgArr.length - 1,
           );
-          if (imgRef.current) {
-            imgRef.current.src = imgArr[imgIndex];
-          }
+          if (imgRef.current) imgRef.current.src = imgArr[imgIndex];
         },
       },
     });
@@ -61,9 +104,8 @@ function Agency() {
       },
     });
 
-    // First image reveals from bottom
-    gsap.fromTo(
-      lastImgRef2.current,
+    // First image reveals + show label 1 both lines
+    gsap.fromTo(lastImgRef2.current,
       { y: "100%" },
       {
         y: "0%",
@@ -74,13 +116,14 @@ function Agency() {
           end: "top 10%",
           scroller: sectionRef.current,
           scrub: 1,
+          onEnter:     () => show(l1FwdRef, l1BackRef),
+          onLeaveBack: () => hide(l1FwdRef, l1BackRef),
         },
       }
     );
 
-    // Second image comes AFTER first is fully shown
-    gsap.fromTo(
-      lastImgRef.current,
+    // Second image stacks + swap to label 2
+    gsap.fromTo(lastImgRef.current,
       { y: "100%" },
       {
         y: "0%",
@@ -91,6 +134,14 @@ function Agency() {
           end: "top -80%",
           scroller: sectionRef.current,
           scrub: 1,
+          onEnter: () => {
+            hide(l1FwdRef, l1BackRef);
+            show(l2FwdRef, l2BackRef);
+          },
+          onLeaveBack: () => {
+            hide(l2FwdRef, l2BackRef);
+            show(l1FwdRef, l1BackRef);
+          },
         },
       }
     );
@@ -98,29 +149,23 @@ function Agency() {
     // Smooth key scroll
     const scrollEl = sectionRef.current;
     let targetScroll = scrollEl.scrollTop;
-
     const handleKeyDown = (e) => {
       if (e.key === "ArrowDown" || e.key === "ArrowUp") {
         e.preventDefault();
         const step = e.key === "ArrowDown" ? 300 : -300;
         targetScroll += step;
         gsap.killTweensOf(scrollEl);
-        gsap.to(scrollEl, {
-          scrollTop: targetScroll,
-          duration: 1.5,
-          ease: "power2.out",
-        });
+        gsap.to(scrollEl, { scrollTop: targetScroll, duration: 1.5, ease: "power2.out" });
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   });
 
   return (
-    <div>
-      <div ref={sectionRef} className="h-screen overflow-y-auto bg-white">
-        
+    <div style={{ overflowX: "hidden" }}>
+      <div ref={sectionRef} className="h-screen  overflow-x-hidden overflow-y-auto bg-white">
+
         {/* Section 1 */}
         <div className="font-[font2] relative min-h-[300vh] w-full">
           <div
@@ -136,20 +181,12 @@ function Agency() {
             />
           </div>
 
-          <div
-            className="absolute top-[30vh] lg:top-[50vh] w-full
-                       text-[18vw] text-black leading-[17vw]
-                       font-[font1] flex flex-col items-center"
-          >
+          <div className="absolute top-[30vh] lg:top-[50vh] w-full text-[18vw] text-black leading-[17vw] font-[font1] flex flex-col items-center">
             <div>SEVEN7Y</div>
             <div>TWO</div>
           </div>
 
-          <div
-            className="absolute top-[60vh] lg:top-[130vh] right-0 w-3/4 
-            lg:p-0 p-[50vh] lg:w-1/2
-                       text-black text-[6vw] lg:text-[3vw] lg:leading-[4vw] pr-[5vw]"
-          >
+          <div className="absolute top-[60vh] lg:top-[130vh] right-0 w-3/4 lg:p-0 p-[50vh] lg:w-1/2 text-black text-[6vw] lg:text-[3vw] lg:leading-[4vw] pr-[5vw]">
             <p className="indent-[3em]">
               We're inquisitive and open-minded, and we make sure creativity
               crowds out ego from every corner. A brand is a living thing, with
@@ -167,41 +204,43 @@ function Agency() {
           </div>
         </div>
 
+        {/* Section 2 */}
         <div
           style={{ background: "white" }}
           ref={containerRef}
           className="section2 min-h-[300vh] w-full flex items-start justify-center pt-[20vh]"
         >
-          <div className="sticky top-[10vh]" 
-          style={{ width: "30vw", height: "50vw" }}>
+          <div
+            className="sticky top-[10vh]"
+            style={{ width: "30vw", height: "50vw", overflow: "visible" }}
+          >
 
-            {/* First image */}
-            <div className="absolute inset-0 rounded-3xl overflow-hidden z-0">
-              <img
-                ref={lastImgRef2}
-                className="w-full h-full object-cover"
-                style={{ transform: "translateY(100%)" }}
-                src="/img/Carl_480x640.jpg"
-                alt="model"
-              />
+            {/* ── Label 1 fwd — behind img1 (z:5), left→right ── */}
+            <span ref={l1FwdRef}  className="train-label train-fwd"  style={{ opacity: 0, transition: "opacity 0.5s", zIndex: 5  }}>CARLES GRANGER</span>
+
+            {/* First image z:10 */}
+            <div className="absolute inset-0 rounded-3xl overflow-hidden" style={{ zIndex: 10 }}>
+              <img ref={lastImgRef2} className="w-full h-full object-cover" style={{ transform: "translateY(100%)" }} src="/img/Carl_480x640.jpg" alt="model" />
             </div>
 
-            {/* Second image - stacks on top */}
-            <div className="absolute inset-0 rounded-3xl overflow-hidden z-10">
-              <img
-                ref={lastImgRef}
-                className="w-full h-full object-cover"
-                style={{ transform: "translateY(100%)" }}
-                src="/img/CAMILLE_480X640_2.jpg"
-                alt="model"
-              />
+            {/* ── Label 1 back — in front of img1 (z:15), right→left ── */}
+            <span ref={l1BackRef} className="train-label train-back" style={{ opacity: 0, transition: "opacity 0.5s", zIndex: 15 }}>SENIOR EXECUTIVE</span>
+
+            {/* ── Label 2 fwd — behind img2 (z:18), left→right ── */}
+            <span ref={l2FwdRef}  className="train-label train-fwd"  style={{ opacity: 0, transition: "opacity 0.5s", zIndex: 18 }}>CAMILLE BERNARD</span>
+
+            {/* Second image z:20 */}
+            <div className="absolute inset-0 rounded-3xl overflow-hidden" style={{ zIndex: 20 }}>
+              <img ref={lastImgRef} className="w-full h-full object-cover" style={{ transform: "translateY(100%)" }} src="/img/CAMILLE_480X640_2.jpg" alt="model" />
             </div>
+
+            {/* ── Label 2 back — in front of img2 (z:25), right→left ── */}
+            <span ref={l2BackRef} className="train-label train-back" style={{ opacity: 0, transition: "opacity 0.5s", zIndex: 25 }}>ACCOUNTANT</span>
 
           </div>
         </div>
-        <div className="h-[3%] w-full bg-black ">
 
-        </div>
+        <div className="h-[3%] w-full bg-black" />
       </div>
     </div>
   );
