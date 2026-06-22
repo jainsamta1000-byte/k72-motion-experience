@@ -4,6 +4,7 @@ function Video() {
             <video
                 className='h-full w-full object-cover  block'
                 loop
+                autoPlay
                 playsInline
                 muted
                 src='/video.mp4'

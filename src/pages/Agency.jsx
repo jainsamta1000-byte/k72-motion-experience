@@ -36,25 +36,25 @@ function Agency() {
     style.id = "train-style";
     style.textContent = `
       @keyframes trainLeft {
-        from { transform: translateX(-120vw); }
-        to   { transform: translateX(120vw); }
+        from { transform: translateX(-100vw); }
+        to   { transform: translateX(100vw); }
       }
       @keyframes trainRight {
-        from { transform: translateX(120vw); }
-        to   { transform: translateX(-120vw); }
+        from { transform: translateX(100vw); }
+        to   { transform: translateX(-100vw); }
       }
       .train-label {
         position: absolute;
         left: 0;
         white-space: nowrap;
         font-family: font1, sans-serif;
-        font-size: 5vw;
+        font-size: 7vw;
         font-weight: 900;
         letter-spacing: 0.1em;
         color: #ddff44;
         pointer-events: none;
       }
-      .train-fwd  { top: 40%; animation: trainLeft  10s linear infinite; }
+      .train-fwd  { top: 40%; animation: trainLeft  7s linear infinite; }
       .train-back { top: 58%; animation: trainRight  7s linear infinite; }
     `;
     document.head.appendChild(style);
@@ -191,13 +191,14 @@ function Agency() {
 
         <div
           ref={containerRef}
-          className="lg:min-h-[300vh] min-h-[200vh] w-full
+          className="lg:min-h-[300vh] min-h-[250vh] w-full
            flex items-start justify-center
           lg:pt-[20vh]"
           style={{ background: "white" }}
         >
-          <div className="sticky top-[10vh]"
-           style={{ width: "30vw", height: "50vw", overflow: "visible" }}>
+          <div className="sticky top-[20vh] lg:top-[10vh] lg:w-[70vh]
+           w-[20vh] h-[30vh] lg:h-[90vh]"
+           style={{ overflow: "visible" }}>
 
             <span ref={label1FwdRef}  className="train-label train-fwd"  style={{ opacity: 0, transition: "opacity 0.5s", zIndex: 5  }}>CARLES GRANGER</span>
 
@@ -218,7 +219,7 @@ function Agency() {
           </div>
         </div>
 
-        <div className="h-[3%] w-full bg-black" />
+        <div className="lg:h-[3%] hidden w-full bg-black" />
       </div>
     </div>
   );
