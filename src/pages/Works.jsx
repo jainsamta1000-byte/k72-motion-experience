@@ -56,14 +56,12 @@ function Works() {
 
   return (
     <div className="works-scroller h-screen overflow-y-auto overflow-x-hidden">
-      {/* Header: tighter top padding on mobile, original on md+ */}
       <div className="h-[30vw] pt-[30vw] md:pt-[55vw] flex flex-col justify-end">
         <h2 className="font-[font2] text-[13vw] h-[14vw] flex flex-col justify-start uppercase">
           Work
         </h2>
       </div>
 
-      {/* Cards container: tighter margin on mobile, original on md+ */}
       <div className="flex gap-4 mx-2 md:m-6 items-center flex-col">
         {projects.map((elem, index) => (
           <div
