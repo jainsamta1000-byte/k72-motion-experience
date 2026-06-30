@@ -10,6 +10,7 @@ A modern frontend project showcasing smooth animations and interactive UI built 
 - **JavaScript (ES6+)** – core interactivity
 - **TypeScript** – type safety and scalability
 - **TailwindCSS** – utility-first styling
+- -**React-core interactivity
 - **GSAP (GreenSock Animation Platform)** – advanced animations and motion effects
 
 ---
